@@ -1,0 +1,49 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+@import "@fontsource/rajdhani/500.css";
+@import "@fontsource/rajdhani/600.css";
+@import "@fontsource/rajdhani/700.css";
+
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Inter", sans-serif;
+    --font-display: "Rajdhani", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+
+    --color-background: #0a0b0f;
+    --color-surface: #0f1117;
+    --color-card: #151821;
+    --color-elevated: #1b1f2a;
+
+    --color-border: #292e3a;
+    --color-border-subtle: #20242e;
+
+    --color-foreground: #f1f3f5;
+    --color-muted: #9ca3af;
+    --color-subtle: #667085;
+
+    --color-primary: #4f8cff;
+    --color-primary-hover: #6ba3ff;
+
+    --color-success: #34d399;
+    --color-warning: #fbbf24;
+    --color-danger: #f87171;
+
+    --color-accent: #8b7cff;
+}
+
+.titlebar {
+    -webkit-app-region: drag;
+}
+
+.traffic,
+.titlebar button {
+    -webkit-app-region: no-drag;
+}
