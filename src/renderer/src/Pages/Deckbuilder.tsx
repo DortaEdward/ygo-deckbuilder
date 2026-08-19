@@ -1,8 +1,11 @@
+import AddCardModal from "@renderer/components/AddCardModal";
+import { SidebarKeys, SidebarState } from "@shared/index";
 import { Check, ChevronDown, ChevronRight, Edit2, ShoppingCart, Upload } from "lucide-react";
 import { useState } from "react";
 
+
 export default function Deckbuilder() {
-    const [inputToggle, setInputToggle] = useState(true);
+    const [inputToggle, setInputToggle] = useState(false);
     const [deckName, setDeck] = useState('Deck name');
     const decks = [
         {
@@ -20,10 +23,11 @@ export default function Deckbuilder() {
     ]
 
     const [mainDeckOpen, setMainDeckOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
     return (
-        <div className="flex h-full">
+        <div className="flex h-full relative">
             <div className="flex-1 h-full min-h-0 overflow-y-auto text-white">
                 <section className="p-4">
                     <div className="flex items-center justify-between">
@@ -91,7 +95,7 @@ export default function Deckbuilder() {
                         </div>
                     </div>
                     <div>
-                        <button className="text-xs border border-border cursor-pointer px-3 py-1 rounded bg-white/5">+ Add cards</button>
+                        <button onClick={() => setIsModalOpen(true)} className="text-xs border border-border cursor-pointer px-3 py-1 rounded bg-white/5">+ Add cards</button>
                     </div>
                 </section>
                 <section className="px-4 py-4">
@@ -132,6 +136,9 @@ export default function Deckbuilder() {
                 </section>
             </div>
             <div className="min-w-64 border-l border-border h-full min-h-0">Deck Analusis</div>
+            {
+                isModalOpen && <AddCardModal setIsModalOpen={setIsModalOpen} />
+            }
         </div>
     )
 }
