@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { initDb } from './db'
 
 let mainWindow: BrowserWindow | null = null
 
@@ -38,6 +39,7 @@ function createWindow(): void {
 }
 
 app.whenReady().then(() => {
+  initDb();
   electronApp.setAppUserModelId('com.electron')
 
   app.on('browser-window-created', (_, window) => {
