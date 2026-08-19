@@ -29,10 +29,11 @@ export const cardSets = sqliteTable(
         setName: text('set_name').notNull(),
         setCode: text('set_code').notNull(),
         setRarity: text('set_rarity'),
+        setRarityCode: text('set_rarity_code'),
         setPrice: text('set_price'),
     },
     (table) => [
-        primaryKey({ columns: [table.cardId, table.setCode] }),
+        primaryKey({ columns: [table.cardId, table.setCode, table.setRarity] }),
     ]
 )
 
@@ -70,8 +71,8 @@ export const collectionEntries = sqliteTable(
     {
         id: integer('id').primaryKey({ autoIncrement: true }),
         cardId: integer('card_id').notNull(),
-        setCode: text('set_code').notNull(),        // required — exact printing owned
-        rarity: text('rarity').notNull(),            // e.g. "Ultra Rare", "Secret Rare"
+        setCode: text('set_code').notNull(),
+        rarity: text('rarity').notNull(),
         condition: text('condition', {
             enum: ['mint', 'near_mint', 'excellent', 'good', 'light_played', 'played', 'poor'],
         })
@@ -83,8 +84,8 @@ export const collectionEntries = sqliteTable(
     },
     (table) => [
         foreignKey({
-            columns: [table.cardId, table.setCode],
-            foreignColumns: [cardSets.cardId, cardSets.setCode],
+            columns: [table.cardId, table.setCode, table.rarity],
+            foreignColumns: [cardSets.cardId, cardSets.setCode, cardSets.setRarity],
         }).onDelete('cascade'),
     ]
 )

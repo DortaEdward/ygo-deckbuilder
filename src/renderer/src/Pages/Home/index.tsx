@@ -1,3 +1,4 @@
+import ImportButton from "@renderer/components/Import"
 import { Link } from "react-router"
 
 export default function Homepage() {
@@ -15,6 +16,7 @@ export default function Homepage() {
                     <p>Exit</p>
                 </Link>
             </div>
+            <ImportButton />
         </div>
     )
 }

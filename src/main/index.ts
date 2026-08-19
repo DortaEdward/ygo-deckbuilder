@@ -1,9 +1,17 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, protocol, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { initDb } from './db'
+import './ipc/cards'
+import fs from 'fs'
 
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: 'card-image',
+    privileges: { standard: true, secure: true, supportFetchAPI: true, bypassCSP: true },
+  },
+])
 let mainWindow: BrowserWindow | null = null
 
 function createWindow(): void {
@@ -40,6 +48,21 @@ function createWindow(): void {
 
 app.whenReady().then(() => {
   initDb();
+  protocol.handle('card-image', (request) => {
+    const url = new URL(request.url)
+    const id = url.pathname.replace(/^\//, '').replace(/\.jpg$/, '')
+    const imagePath = join(app.getAppPath(), 'images', `${id}.jpg`)
+
+    console.log('card-image request:', request.url, '→', imagePath, fs.existsSync(imagePath))
+
+    if (!fs.existsSync(imagePath)) {
+      return new Response('Not found', { status: 404 })
+    }
+
+    return new Response(fs.readFileSync(imagePath), {
+      headers: { 'content-type': 'image/jpeg' },
+    })
+  })
   electronApp.setAppUserModelId('com.electron')
 
   app.on('browser-window-created', (_, window) => {

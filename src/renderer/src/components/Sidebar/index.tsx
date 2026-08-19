@@ -227,7 +227,7 @@ export default function Sidebar() {
                     </div>
                 </div>
             </div>
-            <div className="flex-1 min-h-0">main</div>
+
         </div>
     )
 }
