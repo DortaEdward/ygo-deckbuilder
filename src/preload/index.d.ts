@@ -1,4 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
+import { Card } from '@shared/index'
 
 export interface Api {
   minimize: () => void
@@ -7,7 +8,7 @@ export interface Api {
   importCards: (filePath?: string) => Promise<any>
   onImportProgress: (callback: (progress: any) => void) => () => void,
   getAllCards: (options?: { page?: number; pageSize?: number; search?: string }) => Promise<{
-    cards: any[]
+    cards: Card[]
     total: number
     page: number
     pageSize: number

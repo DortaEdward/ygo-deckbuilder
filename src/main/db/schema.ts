@@ -19,6 +19,7 @@ export const cards = sqliteTable('cards', {
     imageUrlSmall: text('image_url_small'),
     updatedAt: integer('updated_at'),
 })
+export type CardType = typeof cards;
 
 export const cardSets = sqliteTable(
     'card_sets',

@@ -83,7 +83,7 @@ export default function Sidebar() {
         collection: ["owned only", "missing only"]
     }
     return (
-        <div className="flex-1 flex h-full min-h-0 ">
+        <div className="flex h-full min-h-0 ">
             <div className="border-r border-border h-full overflow-y-auto scrollbar-thumb-card w-58 p-3 flex flex-col gap-4">
                 <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">

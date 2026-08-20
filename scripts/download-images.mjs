@@ -4,18 +4,10 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// ─────────────────────────────────────────────
-// Config
-// ─────────────────────────────────────────────
-
-const JSON_PATH = path.join(__dirname,"data", 'cards.json') // adjust to your actual file location
+const JSON_PATH = path.join("data", 'cards.json') // adjust to your actual file location
 const OUTPUT_DIR = path.join(__dirname, 'images')
 const CONCURRENCY = 8 // stay comfortably under ygoprodeck's 20 req/sec limit
 const RETRY_LIMIT = 3
-
-// ─────────────────────────────────────────────
-// Helpers
-// ─────────────────────────────────────────────
 
 async function downloadImage(url, destPath, attempt = 1) {
   try {
@@ -38,7 +30,6 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-// Simple concurrency-limited queue, no extra deps needed
 async function runWithConcurrency(items, limit, worker) {
   let index = 0
   let active = 0
@@ -68,10 +59,6 @@ async function runWithConcurrency(items, limit, worker) {
   })
 }
 
-// ─────────────────────────────────────────────
-// Main
-// ─────────────────────────────────────────────
-
 async function main() {
   if (!fs.existsSync(JSON_PATH)) {
     console.error(`JSON file not found at ${JSON_PATH}`)
@@ -86,7 +73,6 @@ async function main() {
   const parsed = JSON.parse(raw)
   const cards = parsed.data
 
-  // Build a flat list of { id, url, destPath }, skipping cards with no image or already-downloaded files
   const tasks = cards
     .filter((card) => card.card_images?.[0]?.image_url)
     .map((card) => {

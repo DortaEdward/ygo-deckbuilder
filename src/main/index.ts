@@ -50,10 +50,8 @@ app.whenReady().then(() => {
   initDb();
   protocol.handle('card-image', (request) => {
     const url = new URL(request.url)
-    const id = url.pathname.replace(/^\//, '').replace(/\.jpg$/, '')
-    const imagePath = join(app.getAppPath(), 'images', `${id}.jpg`)
-
-    console.log('card-image request:', request.url, '→', imagePath, fs.existsSync(imagePath))
+    const imagePath = join(app.getAppPath(), 'images', `${url.host}`)
+    // console.log('card-image request:', request.url, '→', imagePath, fs.existsSync(imagePath))
 
     if (!fs.existsSync(imagePath)) {
       return new Response('Not found', { status: 404 })
